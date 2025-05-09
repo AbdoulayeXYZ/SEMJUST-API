@@ -103,7 +103,3 @@ pytest
 
 ## Licence
 Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
-## Contact
-Votre Nom - [@votre_twitter](https://twitter.com/votre_twitter)
-Email - votre.email@example.com 

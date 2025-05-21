@@ -30,6 +30,7 @@ class Departement(Base):
     
     # Relations
     region = relationship("Region", back_populates="departements")
+    allocations = relationship("Allocation", back_populates="departement")
     
     def __repr__(self):
         return f"<Departement {self.nom}>" 

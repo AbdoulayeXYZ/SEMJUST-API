@@ -1,0 +1,42 @@
+groups:
+  - name: semjust_alerts
+    rules:
+      - alert: HighSeedAllocation
+        expr: sum by(region) (allocation_quantity) > 1500
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Allocation élevée de semences dans la région {{ $labels.region }}"
+          description: "L'allocation totale de semences dans la région {{ $labels.region }} est de {{ $value }}, ce qui dépasse le seuil de 1500."
+
+      - alert: LowSeedAllocation
+        expr: sum by(region) (allocation_quantity) < 500
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Allocation faible de semences dans la région {{ $labels.region }}"
+          description: "L'allocation totale de semences dans la région {{ $labels.region }} est de {{ $value }}, ce qui est inférieur au seuil de 500."
+
+      - alert: UnbalancedSeedDistribution
+        expr: |
+          max by(region) (sum by(region) (allocation_quantity)) /
+          min by(region) (sum by(region) (allocation_quantity)) > 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Distribution déséquilibrée des semences entre les régions"
+          description: "Le ratio entre la région avec le plus de semences et celle avec le moins est supérieur à 3, indiquant une distribution potentiellement inéquitable."
+
+      - alert: SeedTypeImbalance
+        expr: |
+          max by(type_semence) (sum by(type_semence) (allocation_quantity)) /
+          min by(type_semence) (sum by(type_semence) (allocation_quantity)) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Déséquilibre entre les types de semences"
+          description: "Le ratio entre le type de semence le plus alloué et le moins alloué est supérieur à 2, indiquant un déséquilibre potentiel dans la distribution des types de semences."

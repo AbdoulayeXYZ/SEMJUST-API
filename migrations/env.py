@@ -6,7 +6,11 @@ from sqlalchemy import pool
 from alembic import context
 
 # Ajoutez ces lignes dans env.py
+from app.models.region import Region
+from app.models.departement import Departement
+from app.models.allocation import Allocation
 from app.db.base_class import Base
+
 target_metadata = Base.metadata
 
 # this is the Alembic Config object, which provides

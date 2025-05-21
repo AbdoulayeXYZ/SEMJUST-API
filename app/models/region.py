@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, JSON
 from sqlalchemy.dialects.postgresql import JSONB
 from geoalchemy2 import Geometry
+from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
 
@@ -25,6 +26,10 @@ class Region(Base):
     
     # Historique des allocations
     historique_allocations = Column(JSONB, default={})
+    
+    # Relations
+    departements = relationship("Departement", back_populates="region")
+    allocations = relationship("Allocation", back_populates="region")
     
     def __repr__(self):
         return f"<Region {self.nom}>" 

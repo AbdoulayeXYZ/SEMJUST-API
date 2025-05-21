@@ -59,6 +59,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus-rules.yml:/etc/prometheus/prometheus-rules.yml
       - prometheus_data:/prometheus
     networks:
       - semjust-network
@@ -85,4 +86,4 @@ volumes:
 
 networks:
   semjust-network:
-    driver: bridge 
+    driver: bridge
